@@ -1,13 +1,4 @@
-import subprocess
 import os
-import sys
-
-# Pfad zum `bin` Ordner und `requirements_checker.py`
-#bin_folder = os.path.join(os.path.dirname(__file__), 'bin')
-#requirements_checker_path = os.path.join(bin_folder, 'requirements.py')
-
-# Führe das `requirements_checker.py` Skript aus
-subprocess.check_call([sys.executable, requirements_checker_path])
 
 # Der Rest des Hauptskripts
 import pandas as pd
@@ -64,17 +55,15 @@ results = process_files(input_dir, patterns)
 # Create a DataFrame from the results
 results_df = pd.DataFrame(results, columns=["Job_ID", "Task_ID"])
 
-# Create a timestamp
-timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+timestamp = datetime.now().strftime("%Y%m%d_%H%M")
 
-# Generate the name for the output file with timestamp
-output_filename = f"output_{timestamp}.xlsx"
+output_path = f"output/filtered_{timestamp}"
 
-# Save the results to the output file
-results_df.to_excel(output_filename, index=False)
+results_df.to_excel(output_path + ".xlsx", index=False)
+results_df.to_csv(output_path + ".csv", index=False)
 
 # Show completion message and close GUI after a short delay
-completion_label = tk.Label(root, text=f"Completed! Results saved to {output_filename}")
+completion_label = tk.Label(root, text=f"Completed! Results saved to {output_path}")
 completion_label.pack(pady=10)
 root.update_idletasks()
 root.after(3000, root.destroy)  # Close the window after 3 seconds

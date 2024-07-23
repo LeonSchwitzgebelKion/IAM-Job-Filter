@@ -3,11 +3,11 @@ input/*
 # But don't ignore the directory itself
 !input/
 
-
-# But don't ignore the directory itself
-!output/
 # Ignore all files in output directory
 output/*
+# But don't ignore the directory itself
+!output/
+
 # Keep a .gitkeep file in the directories
 !input/.gitkeep
 !output/.gitkeep
