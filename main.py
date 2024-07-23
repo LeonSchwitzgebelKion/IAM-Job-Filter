@@ -62,3 +62,6 @@ end_time = datetime.now()
 print(f"Processing completed at: {end_time.strftime('%Y-%m-%d %H:%M:%S')}")
 print(f"Results saved to: {output_path_xlsx}")
 print(f"Results saved to: {output_path_csv}")
+
+# Wait for user input before closing
+input("Press Enter to close...")
