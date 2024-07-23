@@ -1,12 +1,7 @@
 import os
-
-# Der Rest des Hauptskripts
 import pandas as pd
 import re
-import os
 from datetime import datetime
-import tkinter as tk
-from tkinter import ttk
 
 def load_patterns(patterns_file_path):
     with open(patterns_file_path, 'r') as file:
@@ -30,10 +25,9 @@ def process_files(input_dir, patterns):
                     results.append((row['Job_ID'], row['Task_ID']))
                     break
         
-        # Update progress
+        # Print progress to console
         progress = int((i + 1) / total_files * 100)
-        progress_var.set(progress)
-        root.update_idletasks()
+        print(f"Processing file {i + 1}/{total_files} ({progress}%)")
 
     return results
 
@@ -41,31 +35,30 @@ def process_files(input_dir, patterns):
 patterns_file_path = 'patterns.txt'
 patterns = load_patterns(patterns_file_path)
 
-# Set up the GUI
-root = tk.Tk()
-root.title("Progress")
-progress_var = tk.DoubleVar()
-progress_bar = ttk.Progressbar(root, variable=progress_var, maximum=100)
-progress_bar.pack(fill=tk.X, expand=1, padx=20, pady=20)
+# Print start time
+start_time = datetime.now()
+print(f"Start processing at: {start_time.strftime('%Y-%m-%d %H:%M:%S')}")
 
-# Process files and update progress bar
+# Process files and update progress in the console
 input_dir = 'input'
 results = process_files(input_dir, patterns)
 
 # Create a DataFrame from the results
 results_df = pd.DataFrame(results, columns=["Job_ID", "Task_ID"])
 
+# Create a timestamp for the output file
 timestamp = datetime.now().strftime("%Y%m%d_%H%M")
 
-output_path = f"output/filtered_{timestamp}"
+# Define output file paths
+output_path_xlsx = f"output/filtered_{timestamp}.xlsx"
+output_path_csv = f"output/filtered_{timestamp}.csv"
 
-results_df.to_excel(output_path + ".xlsx", index=False)
-results_df.to_csv(output_path + ".csv", index=False)
+# Save results to Excel and CSV
+results_df.to_excel(output_path_xlsx, index=False)
+results_df.to_csv(output_path_csv, index=False)
 
-# Show completion message and close GUI after a short delay
-completion_label = tk.Label(root, text=f"Completed! Results saved to {output_path}")
-completion_label.pack(pady=10)
-root.update_idletasks()
-root.after(3000, root.destroy)  # Close the window after 3 seconds
-
-root.mainloop()
+# Print end time and output file locations
+end_time = datetime.now()
+print(f"Processing completed at: {end_time.strftime('%Y-%m-%d %H:%M:%S')}")
+print(f"Results saved to: {output_path_xlsx}")
+print(f"Results saved to: {output_path_csv}")
