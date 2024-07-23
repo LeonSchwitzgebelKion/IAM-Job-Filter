@@ -50,8 +50,8 @@ results_df = pd.DataFrame(results, columns=["Job_ID", "Task_ID"])
 timestamp = datetime.now().strftime("%Y%m%d_%H%M")
 
 # Define output file paths
-output_path_xlsx = f"output/filtered_{timestamp}.xlsx"
-output_path_csv = f"output/filtered_{timestamp}.csv"
+output_path_xlsx = f"output/{timestamp}/filtered_data.xlsx"
+output_path_csv = f"output/{timestamp}/filtered_data.csv"
 
 # Save results to Excel and CSV
 results_df.to_excel(output_path_xlsx, index=False)
