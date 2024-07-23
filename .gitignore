@@ -1,8 +1,17 @@
-# Ignore the input directory
-input/
+# Ignore all files in input directory
+input/*
+# But don't ignore the directory itself
+!input/
 
-# Ignore the output directory
-output/
+# Ignore all files in output directory
+output/*
+# But don't ignore the directory itself
+!output/
+
+# Keep a .gitkeep file in the directories
+!input/.gitkeep
+!output/.gitkeep
+
 
 # Ignore Python cache files
 __pycache__/
