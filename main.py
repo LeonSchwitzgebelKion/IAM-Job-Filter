@@ -14,7 +14,7 @@ from datetime import datetime
 # Lade die Patterns aus der Datei patterns.txt
 patterns_file_path = 'patterns.txt'
 with open(patterns_file_path, 'r') as file:
-    patterns = [line.strip() for line in file if line.strip()]
+    patterns = [line.strip().replace('*', "([^']*)") for line in file if line.strip()]
 
 # Verzeichnis mit den Eingabedateien
 input_dir = 'input'

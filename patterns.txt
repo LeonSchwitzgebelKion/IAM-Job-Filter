@@ -1,2 +1,2 @@
-Modifying account '([^']*)', in '([^']*)'
-Create new account '([^']*)', in '([^']*)'
+Modifying account *, in *
+Create new account *, in *
