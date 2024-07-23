@@ -50,18 +50,20 @@ results_df = pd.DataFrame(results, columns=["Job_ID", "Task_ID"])
 timestamp = datetime.now().strftime("%Y%m%d_%H%M")
 
 # Define output file paths
-output_path_xlsx = f"output/{timestamp}/filtered_data.xlsx"
-output_path_csv = f"output/{timestamp}/filtered_data.csv"
+output_path = f"output/{timestamp}/"
+
+if not os.path.exists(output_path):
+    # Verzeichnis erstellen
+    os.makedirs(output_path)
 
 # Save results to Excel and CSV
-results_df.to_excel(output_path_xlsx, index=False)
-results_df.to_csv(output_path_csv, index=False)
+results_df.to_excel(output_path + "filtered_data.xlsx", index=False)
+results_df.to_csv(output_path + "filtered_data.csv", index=False)
 
 # Print end time and output file locations
 end_time = datetime.now()
 print(f"Processing completed at: {end_time.strftime('%Y-%m-%d %H:%M:%S')}")
-print(f"Results saved to: {output_path_xlsx}")
-print(f"Results saved to: {output_path_csv}")
+print(f"Results saved to: {output_path}")
 
 # Wait for user input before closing
 input("Press Enter to close...")
